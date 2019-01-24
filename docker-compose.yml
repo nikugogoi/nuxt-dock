@@ -1,0 +1,32 @@
+version: "3"
+
+networks:
+  web:
+
+services:
+  yarn-install:
+    build: ./yarn_install
+    volumes:
+      - ..:/usr/src
+
+### Nuxt ################################################
+  nuxt:
+    build: ./nuxt
+    volumes:
+        - ..:/usr/src
+    ports:
+            # Let's also override the exposed port, so we can
+            # work in http://localhost:9000
+            - "${NUXT_PORT}:3333"
+    networks:
+      - web
+
+### Redis ################################################
+  redis:
+    build: ./redis
+    volumes:
+      - ${DATA_PATH_HOST}/redis:/data
+    ports:
+      - "${REDIS_PORT}:6379"
+    networks:
+      - web
