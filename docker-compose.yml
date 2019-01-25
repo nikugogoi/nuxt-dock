@@ -2,6 +2,8 @@ version: "3"
 
 networks:
   web:
+  local:
+    driver: host 
 
 services:
   yarn-install:
