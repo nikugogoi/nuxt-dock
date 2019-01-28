@@ -1,0 +1,36 @@
+version: "3"
+
+networks:
+  web:
+
+services:
+### Nuxt ################################################
+  nuxt:
+    image: 127.0.0.1:5000/nuxt
+    build:
+      context: ./../
+      dockerfile: ./nuxt-dock/nuxt/Dockerfile-prod
+    networks:
+      - web
+    deploy:
+      replicas: 4
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 100M
+      restart_policy:
+        condition: on-failure
+    ports:
+            # Let's also override the exposed port, so we can
+            # work in http://localhost:9000
+            - "${NUXT_PORT}:3333"
+    # volumes:
+    #     - ..:/usr/src
+  
+### Redis ##############################################
+  redis:
+    image: redis:alpine
+    ports:
+      - "${REDIS_PORT}:6379"
+    networks:
+      - web

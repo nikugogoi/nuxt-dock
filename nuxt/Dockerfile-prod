@@ -6,12 +6,15 @@ FROM node:alpine
 ENV HOST 0.0.0.0
 ENV PORT 3333
 
-
 WORKDIR /usr/src
-COPY ../ /usr/src
+COPY . /usr/src
+RUN yarn install
+RUN yarn build
 
+# Clear the cache
+RUN yarn cache clean
+
+EXPOSE 3000
 # Run server app
-# Detect whether you have a yarn.lock already and if so
-# just install deps listed on lock file
 # CMD yarn $([ -f yarn.lock ] && echo "install") && $(yarn bin)/nuxt dev
-CMD yarn build && yarn start
+CMD [ "yarn", "start" ]
