@@ -21,9 +21,9 @@ services:
       restart_policy:
         condition: on-failure
     ports:
-            # Let's also override the exposed port, so we can
-            # work in http://localhost:9000
-            - "${NUXT_PORT}:${NUXT_HOST_PORT}"
+      - "${NUXT_PORT}:3333"
+      # Let's also override the exposed port, so we can
+      # work in http://localhost:9000
     # volumes:
     #     - ..:/usr/src
   
