@@ -21,6 +21,10 @@ RUN ls && yarn build
 # Clear the cache
 RUN yarn cache clean
 
+#just listing current directory outout
+RUN pwd
+RUN ls -l
+
 EXPOSE 3000
 # Run server app
 # CMD yarn $([ -f yarn.lock ] && echo "install") && $(yarn bin)/nuxt dev
