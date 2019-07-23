@@ -6,6 +6,8 @@ networks:
 services:
   yarn-install:
     build: ./yarn_install
+    volumes:
+      - ..:/usr/src
 
 ### Nuxt ################################################
   nuxt:
